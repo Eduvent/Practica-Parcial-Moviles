@@ -1,0 +1,21 @@
+# Archivos generados por Android Studio
+*.iml
+.gradle/
+.idea/
+.DS_Store
+local.properties
+
+# Archivos de compilación
+/build/
+/app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+
+# Archivos de distribución y claves
+*.apk
+*.jks
+*.keystore
+
+# Otros archivos sensibles
+.env
