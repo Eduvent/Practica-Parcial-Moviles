@@ -11,6 +11,10 @@ interface TourPackageDao {
     @Insert
     suspend fun insertFavorite(tourPackage: TourPackage)
 
+    //InserONe
+    @Insert
+    fun insertOne(tourPackage: TourPackage)
+
     @Delete
     suspend fun deleteFavorite(tourPackage: TourPackage)
 
@@ -19,4 +23,11 @@ interface TourPackageDao {
 
     @Query("SELECT * FROM tour_packages WHERE id_producto = :idProducto LIMIT 1")
     suspend fun getFavoriteById(idProducto: String): TourPackage?
+
+    @Query("SELECT * FROM tour_packages")
+    fun getAll(): List<TourPackage>
+
+    @Delete
+    fun delete(tourPackage: TourPackage)
+
 }

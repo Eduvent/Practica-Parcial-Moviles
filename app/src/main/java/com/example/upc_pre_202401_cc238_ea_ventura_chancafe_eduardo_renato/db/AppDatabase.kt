@@ -9,7 +9,7 @@ import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.model
 @Database(entities = [TourPackage::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getTourPackageDao(): TourPackageDao
+    abstract fun getDao(): TourPackageDao
 
     companion object {
         @Volatile

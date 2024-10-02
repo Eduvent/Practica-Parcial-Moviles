@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">upc-pre-202401-cc238-EA-Ventura-Chancafe-Eduardo-Renato</string>
+    <string name="package_image">Imagen del paquete turístico</string>
+    <string name="add_favorite">Agregar a favoritos</string>
+    <string name="remove_favorite">Eliminar de favoritos</string>
+
+    <string name="find_package">Find package</string>
+    <string name="favorite_packages">Favorite packages</string>
+    <string name="buscar">Buscar</string>
+    <string name="sitio">IdSitio</string>
+    <string name="tipo">Tipo</string>
+    <string name="viajes">Viajes</string>
+    <string name="hospedaje">Hospedaje</string>
+    <string name="nombre">Nombre</string>
+    <string name="descripcion">Descripción</string>
+    <string name="branding_image">Imagen de Branding</string>
+    <string-array name="sitios_turisticos">
+        <item>S001 - MachuPicchu</item>
+        <item>S002 - Ayacucho</item>
+        <item>S003 - Chichen Itza</item>
+        <item>S004 - Cristo Redentor</item>
+        <item>S005 - Islas Maldivas</item>
+        <item>S006 - Muralla China</item>
+    </string-array>
+
 </resources>

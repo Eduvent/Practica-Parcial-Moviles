@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".activities.Home">
+
+    <ImageView
+        android:id="@+id/ivBranding"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_branding"
+        android:contentDescription="@string/branding_image" />
+
+    <Button
+        android:id="@+id/btnFindPackage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find package"
+        android:layout_marginTop="32dp"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/btnFavoritePackages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favorite packages"
+        android:layout_marginTop="16dp"
+        android:padding="16dp" />
+
+</LinearLayout>
