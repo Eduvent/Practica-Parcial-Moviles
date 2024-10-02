@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutFindPackage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Control para seleccionar IdSitio -->
+    <Spinner
+        android:id="@+id/spinnerIdSitio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/sitios_turisticos" />
+
+    <!-- RadioButtons para seleccionar Tipo -->
+    <RadioGroup
+        android:id="@+id/rgTipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:id="@+id/rbViajes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viajes"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rbHospedaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hospedaje"
+            android:layout_marginStart="16dp" />
+
+    </RadioGroup>
+
+    <!-- Botón de Buscar -->
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buscar"
+        android:layout_marginTop="16dp"
+        android:padding="16dp" />
+
+    <!-- RecyclerView para mostrar los paquetes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPackages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
