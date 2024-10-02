@@ -1,6 +1,7 @@
 package com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.repository
 
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.communication.ApiResponsePackages
+import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.communication.TourPackageResponse
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.db.TourPackageDao
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.models.TourPackage
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.network.RetrofitClient
@@ -8,7 +9,7 @@ import retrofit2.Response
 
 class TourPackageRepository(private val tourPackageDao: TourPackageDao) {
 
-    suspend fun fetchPackages(sitio: String, tipo: Int): Response<ApiResponsePackages> {
+    suspend fun fetchPackages(sitio: String, tipo: Int): Response<List<TourPackageResponse>> {
         return RetrofitClient.instance.getPackages(sitio, tipo).execute()
     }
 

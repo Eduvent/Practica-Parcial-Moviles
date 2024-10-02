@@ -2,10 +2,8 @@ package com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.acti
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.R
@@ -23,6 +21,9 @@ class FavoritePackagesActivity : AppCompatActivity(), FavoritePackageAdapter.OnF
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite_packages)
 
+        // Habilitar el botón de "regresar" en la barra de acción
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         // Inicializar RecyclerView
         rvFavoritePackages = findViewById(R.id.rvFavoritePackages)
         rvFavoritePackages.layoutManager = LinearLayoutManager(this)
@@ -33,13 +34,14 @@ class FavoritePackagesActivity : AppCompatActivity(), FavoritePackageAdapter.OnF
         cargarFavoritos()
     }
 
+
     override fun onResume() {
         super.onResume()
         cargarFavoritos()
     }
 
     private fun cargarFavoritos() {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) {
                 val db = AppDatabase.getInstance(applicationContext)
                 val tourPackageDao = db.getDao()
@@ -55,7 +57,7 @@ class FavoritePackagesActivity : AppCompatActivity(), FavoritePackageAdapter.OnF
     }
 
     override fun onRemoveClick(tourPackage: TourPackage) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
                 val db = AppDatabase.getInstance(applicationContext)
                 val tourPackageDao = db.getDao()
@@ -65,4 +67,5 @@ class FavoritePackagesActivity : AppCompatActivity(), FavoritePackageAdapter.OnF
             cargarFavoritos()
         }
     }
+
 }

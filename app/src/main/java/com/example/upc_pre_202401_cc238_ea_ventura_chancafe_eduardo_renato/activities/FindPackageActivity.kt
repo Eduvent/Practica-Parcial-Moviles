@@ -6,15 +6,13 @@ import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.R
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.adapters.TourPackageAdapter
-import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.communication.ApiResponsePackages
+import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.communication.TourPackageResponse
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.db.AppDatabase
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.models.TourPackage
 import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.network.RetrofitClient
@@ -34,6 +32,9 @@ class FindPackageActivity : AppCompatActivity(), TourPackageAdapter.OnItemClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_package)
+
+        // Habilitar el botón de "regresar" en la barra de acción
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Inicializar views
         spinnerIdSitio = findViewById(R.id.spinnerIdSitio)
@@ -74,10 +75,10 @@ class FindPackageActivity : AppCompatActivity(), TourPackageAdapter.OnItemClickL
 
     private fun buscarPaquetes(sitio: String, tipo: Int) {
         val call = RetrofitClient.instance.getPackages(sitio, tipo)
-        call.enqueue(object : Callback<ApiResponsePackages> {
-            override fun onResponse(call: Call<ApiResponsePackages>, response: Response<ApiResponsePackages>) {
+        call.enqueue(object : Callback<List<TourPackageResponse>> { // Cambiar el tipo de Callback aquí
+            override fun onResponse(call: Call<List<TourPackageResponse>>, response: Response<List<TourPackageResponse>>) {
                 if (response.isSuccessful) {
-                    val packages = response.body()?.results?.map { it.toTourPackage() }
+                    val packages = response.body()?.map { it.toTourPackage() }
                     if (packages != null) {
                         adapter.updatePackages(packages)
                     } else {
@@ -88,14 +89,14 @@ class FindPackageActivity : AppCompatActivity(), TourPackageAdapter.OnItemClickL
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponsePackages>, t: Throwable) {
+            override fun onFailure(call: Call<List<TourPackageResponse>>, t: Throwable) {
                 Toast.makeText(this@FindPackageActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     override fun onFavoriteClick(tourPackage: TourPackage) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
                 val db = AppDatabase.getInstance(applicationContext)
                 val tourPackageDao = db.getDao()
@@ -110,13 +111,12 @@ class FindPackageActivity : AppCompatActivity(), TourPackageAdapter.OnItemClickL
                     tourPackageDao.insertOne(tourPackage)
                 }
             }
-            // Actualizar el adaptador para reflejar el cambio
             adapter.notifyDataSetChanged()
         }
     }
 
     override fun isFavorite(idProducto: String, callback: (Boolean) -> Unit) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             val favorite = withContext(Dispatchers.IO) {
                 val db = AppDatabase.getInstance(applicationContext)
                 val tourPackageDao = db.getDao()

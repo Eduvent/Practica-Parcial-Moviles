@@ -4,9 +4,9 @@ import com.example.upc_pre_202401_cc238_ea_ventura_chancafe_eduardo_renato.model
 import com.google.gson.annotations.SerializedName
 
 data class ApiResponsePackages(
-    @SerializedName("results")
     val results: List<TourPackageResponse>
 )
+
 
 data class TourPackageResponse(
     @SerializedName("idProducto")
@@ -26,11 +26,12 @@ data class TourPackageResponse(
 ) {
     fun toTourPackage(): TourPackage {
         return TourPackage(
-            idProducto = idProducto,
-            nombre = nombre,
-            descripcion = descripcion,
-            ubicacion = ubicacion,
-            imagen = imagen
+            idProducto = idProducto ?: "N/A",
+            nombre = nombre ?: "Nombre no disponible",
+            descripcion = descripcion ?: "Descripción no disponible",
+            ubicacion = ubicacion ?: "Ubicación no disponible",
+            imagen = imagen ?: ""
         )
     }
+
 }
