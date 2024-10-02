@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favorite_packages")
+@Entity(tableName = "tour_packages")
 data class TourPackage(
     @PrimaryKey
     @ColumnInfo(name = "id_producto")
